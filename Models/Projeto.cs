@@ -16,6 +16,7 @@ struct Projeto
     // ---------- Métodos ---------------
     public void Cadastro()
     {
+        Console.Clear();
         if (Quantidade >= projetos.Length)
         {
             Console.WriteLine("Não há espaço disponível para novos projetos.");
@@ -47,9 +48,11 @@ struct Projeto
 
     public void Alterar()
     {
+        Console.Clear();
         if (Quantidade == 0)
         {
             Console.WriteLine("Não há projetos cadastrados.");
+            return;
         }
 
         Console.Write("Informe o ID do projeto a alterar: ");
@@ -59,7 +62,6 @@ struct Projeto
         if (id < 1 || id > Quantidade)
         {
             Console.WriteLine("Esse projeto não existe.");
-            return;
         }
 
         int idA = id - 1; // Indicando a posição no array
@@ -86,6 +88,23 @@ struct Projeto
         if (!string.IsNullOrWhiteSpace(entrada)) projetos[idA].Status = entrada;
 
         Console.WriteLine($"Projeto com ID {id} atualizado.");
+    }
+
+    public void Exibir()
+    {
+        Console.Clear();
+        if (Quantidade == 0)
+        {
+            Console.WriteLine("Nenhum projeto por enquanto.");
+            return;
+        }
+
+        Console.WriteLine("Projetos cadastrados:");
+        for (int i = 0; i < Quantidade; i++)
+        {
+            var p = projetos[i];
+            Console.WriteLine($"ID: {p.Id}\nNome do Projeto: {p.NomeProj}\nNome do Aluno: {p.NomeAluno}\nÁrea: {p.Area}\nSemestre: {p.Semestre}\nStatus: {p.Status}\n -----------------------------");
+        }
     }
 
 }
