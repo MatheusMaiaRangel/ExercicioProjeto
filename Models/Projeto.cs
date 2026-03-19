@@ -13,7 +13,7 @@ struct Projeto
     public static int Quantidade { get; private set; }
 
 
-// ---------- Métodos ---------------
+    // ---------- Métodos ---------------
     public void Cadastro()
     {
         if (Quantidade >= projetos.Length)
@@ -45,6 +45,48 @@ struct Projeto
         Console.WriteLine($"Projeto cadastrado com ID {p.Id}.");
     }
 
-    public static Projeto[] Obterprojetos() => projetos;
+    public void Alterar()
+    {
+        if (Quantidade == 0)
+        {
+            Console.WriteLine("Não há projetos cadastrados.");
+        }
+
+        Console.Write("Informe o ID do projeto a alterar: ");
+        int LerId = Convert.ToInt32(Console.ReadLine());
+        int id = LerId;
+
+        if (id < 1 || id > Quantidade)
+        {
+            Console.WriteLine("Esse projeto não existe.");
+            return;
+        }
+
+        int idA = id - 1; // Indicando a posição no array
+        Projeto atual = projetos[idA];
+
+        Console.Write($"Nome do projeto ({atual.NomeProj}): ");
+        string entrada = Console.ReadLine();
+        if (!string.IsNullOrWhiteSpace(entrada)) projetos[idA].NomeProj = entrada; // Altera se a entrada não for vazia
+
+        Console.Write($"Nome do aluno ({atual.NomeAluno}): ");
+        entrada = Console.ReadLine();
+        if (!string.IsNullOrWhiteSpace(entrada)) projetos[idA].NomeAluno = entrada;
+
+        Console.Write($"Área ({atual.Area}): ");
+        entrada = Console.ReadLine();
+        if (!string.IsNullOrWhiteSpace(entrada)) projetos[idA].Area = entrada;
+
+        Console.Write($"Semestre ({atual.Semestre}): ");
+        entrada = Console.ReadLine();
+        if (!string.IsNullOrWhiteSpace(entrada) && int.TryParse(entrada, out int sem)) projetos[idA].Semestre = sem;
+
+        Console.Write($"Status ({atual.Status}): ");
+        entrada = Console.ReadLine();
+        if (!string.IsNullOrWhiteSpace(entrada)) projetos[idA].Status = entrada;
+
+        Console.WriteLine($"Projeto com ID {id} atualizado.");
+    }
+
 }
 
