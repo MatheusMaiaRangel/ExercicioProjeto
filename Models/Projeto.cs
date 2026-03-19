@@ -2,15 +2,15 @@
 
 struct Projeto
 {
-    public int Id;
-    public string NomeProj;
-    public string NomeAluno;
-    public string Area;
-    public int Semestre;
-    public string Status;
+    int Id;
+    string NomeProj;
+    string NomeAluno;
+    string Area;
+    int Semestre;
+    string Status;
 
-    private static Projeto[] projetos = new Projeto[20];
-    public static int Quantidade { get; private set; }
+    static Projeto[] projetos = new Projeto[20];
+    static int Quantidade { get; set; }
 
 
     // ---------- Métodos ---------------
@@ -20,6 +20,7 @@ struct Projeto
         if (Quantidade >= projetos.Length)
         {
             Console.WriteLine("Não há espaço disponível para novos projetos.");
+            return;
         }
 
         Projeto p = new Projeto();
@@ -62,6 +63,7 @@ struct Projeto
         if (id < 1 || id > Quantidade)
         {
             Console.WriteLine("Esse projeto não existe.");
+            return;
         }
 
         int idA = id - 1; // Indicando a posição no array
@@ -101,10 +103,41 @@ struct Projeto
 
         Console.WriteLine("Projetos cadastrados:");
         for (int i = 0; i < Quantidade; i++)
+        // foreach (var p in projetos)
         {
             var p = projetos[i];
             Console.WriteLine($"ID: {p.Id}\nNome do Projeto: {p.NomeProj}\nNome do Aluno: {p.NomeAluno}\nÁrea: {p.Area}\nSemestre: {p.Semestre}\nStatus: {p.Status}\n -----------------------------");
         }
+    }
+
+    public void Excluir()
+    {
+        Console.Clear();
+        if (Quantidade == 0)
+        {
+            Console.WriteLine("Não há projetos cadastrados.");
+            return;
+        }
+
+        Console.Write("Informe o ID do projeto a excluir: ");
+        int LerId = Convert.ToInt32(Console.ReadLine());
+        int id = LerId;
+
+        if (id < 1 || id > Quantidade)
+        {
+            Console.WriteLine("Esse projeto não existe.");
+            return;
+        }
+
+        int idE = id - 1; // Indicando a posição q vai ser excluida no array
+        for (int i = idE; i < Quantidade - 1; i++)
+        {
+            projetos[i].Id = i + 1; 
+        }
+        projetos[Quantidade - 1] = new Projeto(); 
+        Quantidade--;
+
+        Console.WriteLine($"Projeto com ID {id} excluído.");
     }
 
 }
