@@ -132,7 +132,8 @@ struct Projeto
         int idE = id - 1; // Indicando a posição q vai ser excluida no array
         for (int i = idE; i < Quantidade - 1; i++)
         {
-            projetos[i].Id = i + 1; 
+            projetos[i] = projetos[i + 1];
+            projetos[i].Id = i + 1;
         }
         projetos[Quantidade - 1] = new Projeto(); 
         Quantidade--;
